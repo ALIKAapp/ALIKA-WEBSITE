@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You're invited — Alika</title>
+<meta name="description" content="Confirm your RSVP for this event." />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #FAFAFA;
+    color: #1A1A1A;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  a { text-decoration: none; }
+
+  .mini-nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 16px 20px;
+  }
+  .mini-nav .brand {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #1A1A1A;
+  }
+
+  .page { width: 100%; max-width: 480px; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 24px rgba(26,26,26,0.06); margin-bottom: 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #7100A5 0%, #4E0073 100%);
+    padding: 48px 28px 36px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #E4C9F2;
+    font-weight: 700;
+  }
+  .event-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: #fff;
+    margin-top: 14px;
+    line-height: 1.3;
+  }
+  .event-meta {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    color: #E4C9F2;
+    margin-top: 10px;
+  }
+  .guest-name {
+    display: inline-block;
+    margin-top: 16px;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+
+  .body { padding: 32px 28px; }
+  .question {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .rsvp-buttons { display: flex; flex-direction: column; gap: 12px; }
+  button {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  .btn-yes { background: #7100A5; color: #fff; }
+  .btn-yes:hover { background: #5c0086; }
+  .btn-no { background: #fff; color: #7100A5; border: 1.5px solid #7100A5; }
+  .btn-no:hover { background: #F3E5FB; }
+  button:disabled { opacity: 0.6; cursor: default; }
+
+  .status {
+    display: none;
+    text-align: center;
+    margin-top: 4px;
+    padding: 18px;
+    border-radius: 12px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .status.confirmed { background: #E8F8EE; color: #1F9D55; }
+  .status.declined { background: #FDEAEC; color: #E0364A; }
+
+  .divider { height: 1px; background: #ECECEE; margin: 32px 0; }
+
+  .growth { text-align: center; }
+  .growth p { font-family: 'Manrope', sans-serif; font-size: 13px; color: #6B6B70; margin-bottom: 14px; }
+  .growth a {
+    display: inline-block;
+    background: #F3E5FB;
+    color: #7100A5;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 22px;
+    border-radius: 12px;
+  }
+  .growth a:hover { background: #ecd4fa; }
+
+  .site-foot { font-size: 12.5px; color: #B0AEB5; padding: 0 20px 32px; text-align: center; }
+  .site-foot a { color: #7100A5; font-weight: 700; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+  <div class="mini-nav">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 288 288" aria-hidden="true">
+        <rect x="6.22" y="5.37" width="275.56" height="275.56" rx="61.67" ry="61.67" fill="#7100A5"/>
+        <circle cx="98.98" cy="190.25" r="28.35" fill="#FFBC00"/>
+        <g transform="translate(-49.05 99.25) rotate(-30)"><rect x="132.33" y="56.11" width="56.69" height="170.08" rx="28.35" ry="28.35" fill="#fff"/></g>
+      </svg>
+      Alika
+    </a>
+  </div>
+
+  <div class="page">
+    <div class="header">
+      <div class="eyebrow">YOU'RE INVITED</div>
+      <div class="event-title" id="eventTitle">Loading your invitation…</div>
+      <div class="event-meta" id="eventMeta"></div>
+      <div class="guest-name hidden" id="guestName"></div>
+    </div>
+
+    <div class="body">
+      <div class="question" id="question">Will you be attending?</div>
+      <div class="rsvp-buttons" id="rsvpButtons">
+        <button class="btn-yes" id="btnYes">Yes, I'll be there</button>
+        <button class="btn-no" id="btnNo">Can't make it</button>
+      </div>
+
+      <div class="status confirmed" id="statusAccepted">You're confirmed. See you there! 🎉</div>
+      <div class="status declined" id="statusDeclined">Thanks for letting us know — you'll be missed.</div>
+
+      <div class="divider"></div>
+
+      <div class="growth">
+        <p>Hosting your own event soon?</p>
+        <a href="index.html">Create your invitation with Alika</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-foot">
+    Need help? <a href="support.html">Contact support</a>
+  </div>
+
+<script type="module">
+  import { supabase } from './assets/js/supabase-client.js';
+
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+
+  const eventTitleEl = document.getElementById('eventTitle');
+  const eventMetaEl = document.getElementById('eventMeta');
+  const guestNameEl = document.getElementById('guestName');
+  const questionEl = document.getElementById('question');
+  const buttonsEl = document.getElementById('rsvpButtons');
+  const btnYes = document.getElementById('btnYes');
+  const btnNo = document.getElementById('btnNo');
+
+  function showStatus(choice) {
+    document.getElementById('statusAccepted').style.display = 'none';
+    document.getElementById('statusDeclined').style.display = 'none';
+    document.getElementById(choice === 'accepted' ? 'statusAccepted' : 'statusDeclined').style.display = 'block';
+    questionEl.style.display = 'none';
+    buttonsEl.style.display = 'none';
+  }
+
+  function showInvalid(message) {
+    eventTitleEl.textContent = message;
+    eventMetaEl.textContent = '';
+    questionEl.style.display = 'none';
+    buttonsEl.style.display = 'none';
+  }
+
+  async function loadGuest() {
+    if (!code) {
+      showInvalid('Invalid invitation link');
+      return;
+    }
+
+    const { data, error } = await supabase.rpc('get_guest_for_rsvp', { p_code: code });
+    const guest = Array.isArray(data) ? data[0] : data;
+
+    if (error || !guest) {
+      showInvalid("We couldn't find this invitation");
+      return;
+    }
+
+    eventTitleEl.textContent = guest.event_name || "You're invited";
+    eventMetaEl.textContent = [guest.event_date, guest.event_time, guest.venue].filter(Boolean).join(' · ');
+    if (guest.name) {
+      guestNameEl.textContent = guest.name;
+      guestNameEl.classList.remove('hidden');
+    }
+
+    if (guest.rsvp_status === 'accepted' || guest.rsvp_status === 'declined') {
+      showStatus(guest.rsvp_status);
+    }
+  }
+
+  async function respond(choice) {
+    if (!code) return;
+    btnYes.disabled = true;
+    btnNo.disabled = true;
+    const { error } = await supabase.rpc('submit_rsvp', { p_code: code, p_status: choice });
+    if (!error) {
+      showStatus(choice);
+    } else {
+      btnYes.disabled = false;
+      btnNo.disabled = false;
+    }
+  }
+
+  btnYes.addEventListener('click', () => respond('accepted'));
+  btnNo.addEventListener('click', () => respond('declined'));
+
+  loadGuest();
+</script>
+</body>
+</html>
