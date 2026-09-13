@@ -291,3 +291,52 @@ section { padding: 72px 0; }
   .hero { padding: 56px 0 72px; }
   .cta-band { padding: 40px 24px; }
 }
+
+/* ---------- icons (brand-colored line icons, replacing emoji) ---------- */
+.icon {
+  width: 22px;
+  height: 22px;
+  stroke: var(--purple);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+.icon-gold { stroke: var(--gold); }
+.icon-white { stroke: #fff; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 26px; height: 26px; }
+
+/* ---------- scroll reveal animations ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+[data-reveal="left"] { transform: translateX(-40px); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal="scale"] { transform: scale(0.94); }
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* gentle stagger for items inside a grid/row, purely by position */
+.grid > [data-reveal]:nth-child(3n+1) { --reveal-delay: 0s; }
+.grid > [data-reveal]:nth-child(3n+2) { --reveal-delay: .1s; }
+.grid > [data-reveal]:nth-child(3n)   { --reveal-delay: .2s; }
+.steps > [data-reveal]:nth-child(1) { --reveal-delay: 0s; }
+.steps > [data-reveal]:nth-child(2) { --reveal-delay: .1s; }
+.steps > [data-reveal]:nth-child(3) { --reveal-delay: .2s; }
+.steps > [data-reveal]:nth-child(4) { --reveal-delay: .3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

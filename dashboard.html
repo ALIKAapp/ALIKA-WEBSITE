@@ -10,30 +10,7 @@
   .login-wrap { max-width: 400px; margin: 0 auto; }
   .login-card { text-align: center; }
   .login-card .feature-icon { margin: 0 auto 18px; }
-
-  .dash-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
-  .dash-greeting h2 { margin-bottom: 2px; }
-  .dash-greeting p { margin-bottom: 0; }
-
-  .event-block { margin-bottom: 18px; }
-  .event-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; cursor: pointer; }
-  .event-head h3 { font-size: 16px; margin-bottom: 4px; }
-  .event-head .meta { font-size: 13px; color: var(--text-secondary); }
-  .mini-stats { display: flex; gap: 8px; flex-wrap: wrap; }
-  .mini-stats .badge { font-size: 11.5px; }
-  .chevron { transition: transform .15s ease; color: var(--text-muted); }
-  .event-block.open .chevron { transform: rotate(180deg); }
-
-  .guest-table-wrap { display: none; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .event-block.open .guest-table-wrap { display: block; }
-  .guest-search { max-width: 260px; margin-bottom: 14px; }
-  table.guest-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  table.guest-table th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .4px; color: var(--text-muted); padding: 8px 10px; border-bottom: 1px solid var(--border); }
-  table.guest-table td { padding: 10px 10px; border-bottom: 1px solid var(--border); }
-  table.guest-table tr:last-child td { border-bottom: none; }
-  .guest-table-scroll { overflow-x: auto; }
-  .empty-note { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-  #dashError, #loadingNote { text-align:center; }
+  #checkingNote { text-align: center; color: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -63,7 +40,7 @@
 
 <section class="hero" style="padding-bottom:56px;">
   <div class="container">
-    <div class="hero-inner">
+    <div class="hero-inner" data-reveal="up">
       <span class="eyebrow">Host Dashboard</span>
       <h1 style="font-size:clamp(26px,4vw,36px);">Your RSVPs, at a glance.</h1>
       <p class="lead">Sign in with the same email and password you use in the Alika app to see live accepted/declined counts for every event. This is a read-only view — to create events, add guests or send invitations, use the app.</p>
@@ -73,15 +50,16 @@
 
 <section>
   <div class="container">
-
-    <!-- LOGIN VIEW -->
-    <div id="loginView" class="login-wrap">
+    <div id="loginView" class="login-wrap" data-reveal="up">
       <div class="card login-card">
-        <div class="feature-icon" style="width:52px;height:52px;font-size:24px;">🔒</div>
+        <div class="feature-icon" style="width:52px;height:52px; margin:0 auto 18px;">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+        </div>
         <h3 style="font-size:17px;">Sign in to your Alika account</h3>
         <p class="small" style="margin-bottom:22px;">Use the email &amp; password from your Alika app.</p>
         <div id="loginError" class="form-error"></div>
-        <form id="loginForm">
+        <p id="checkingNote" class="small">Checking if you're already signed in…</p>
+        <form id="loginForm" class="hidden">
           <div class="form-field">
             <label for="email">Email</label>
             <input type="email" id="email" required autocomplete="email" placeholder="you@example.com" />
@@ -95,34 +73,6 @@
         <p class="form-note">Forgot your password? Reset it from the Alika app under Profile, then sign in here with the new one.</p>
       </div>
     </div>
-
-    <!-- DASHBOARD VIEW -->
-    <div id="dashboardView" class="hidden">
-      <div class="dash-top">
-        <div class="dash-greeting">
-          <h2 id="greetingName">Welcome back</h2>
-          <p class="muted small">Live counts across all your events.</p>
-        </div>
-        <button class="btn btn-ghost" id="logoutBtn" style="border:1.5px solid var(--border);">Sign out</button>
-      </div>
-
-      <div class="flex flex-wrap gap-12" style="margin-bottom:36px;">
-        <div class="stat-card"><div class="stat-value" id="statEvents">0</div><div class="stat-label">Events</div></div>
-        <div class="stat-card"><div class="stat-value" id="statGuests">0</div><div class="stat-label">Guests invited</div></div>
-        <div class="stat-card"><div class="stat-value" id="statAccepted" style="color:var(--green);">0</div><div class="stat-label">Accepted</div></div>
-        <div class="stat-card"><div class="stat-value" id="statDeclined" style="color:var(--red);">0</div><div class="stat-label">Declined</div></div>
-        <div class="stat-card"><div class="stat-value" id="statPending" style="color:var(--text-secondary);">0</div><div class="stat-label">Pending</div></div>
-      </div>
-
-      <h3 style="font-size:16px; margin-bottom:16px;">Your events</h3>
-      <p id="loadingNote" class="muted small">Loading your events…</p>
-      <div id="eventsList"></div>
-      <div id="emptyState" class="card empty-note hidden">
-        <p style="margin-bottom:0;">No events yet. Create your first event in the Alika app, and it'll show up here.</p>
-      </div>
-      <div id="dashError" class="form-error" style="margin-top:20px;"></div>
-    </div>
-
   </div>
 </section>
 
@@ -139,158 +89,26 @@
 <script type="module">
   import { supabase } from './assets/js/supabase-client.js';
 
-  const loginView = document.getElementById('loginView');
-  const dashboardView = document.getElementById('dashboardView');
   const loginForm = document.getElementById('loginForm');
   const loginError = document.getElementById('loginError');
   const loginBtn = document.getElementById('loginBtn');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  function escapeHtml(str) {
-    return String(str ?? '').replace(/[&<>"']/g, (c) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    }[c]));
-  }
+  const checkingNote = document.getElementById('checkingNote');
 
   function showError(el, message) {
     el.textContent = message;
     el.style.display = message ? 'block' : 'none';
   }
 
-  async function loadDashboard() {
+  // Already signed in (e.g. returning visitor)? Skip straight to the
+  // dashboard page instead of showing the login form again.
+  async function checkExistingSession() {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    loginView.classList.add('hidden');
-    dashboardView.classList.remove('hidden');
-
-    const { data: profile } = await supabase.from('profiles').select('name').eq('id', user.id).maybeSingle();
-    const firstName = (profile?.name || '').trim().split(' ')[0] || 'there';
-    document.getElementById('greetingName').textContent = `Welcome back, ${firstName}`;
-
-    const loadingNote = document.getElementById('loadingNote');
-    const eventsListEl = document.getElementById('eventsList');
-    const emptyStateEl = document.getElementById('emptyState');
-    const dashErrorEl = document.getElementById('dashError');
-
-    const { data: events, error: eventsErr } = await supabase
-      .from('events')
-      .select('id, name, event_type, event_date, event_time, venue')
-      .order('event_date', { ascending: true });
-
-    loadingNote.classList.add('hidden');
-
-    if (eventsErr) {
-      showError(dashErrorEl, "Couldn't load your events right now. Please try again shortly.");
+    if (user) {
+      window.location.href = 'dashboard-home.html';
       return;
     }
-
-    if (!events || events.length === 0) {
-      emptyStateEl.classList.remove('hidden');
-      resetStats();
-      return;
-    }
-
-    const eventIds = events.map((e) => e.id);
-    const { data: guests, error: guestsErr } = await supabase
-      .from('guests')
-      .select('id, event_id, name, invitation_type, rsvp_status, checked_in_count')
-      .in('event_id', eventIds);
-
-    if (guestsErr) {
-      showError(dashErrorEl, "Couldn't load guest data right now. Please try again shortly.");
-      return;
-    }
-
-    renderEvents(events, guests || []);
-  }
-
-  function resetStats() {
-    ['statEvents', 'statGuests', 'statAccepted', 'statDeclined', 'statPending'].forEach((id) => {
-      document.getElementById(id).textContent = '0';
-    });
-  }
-
-  function countFor(guests, status) {
-    return guests.filter((g) => g.rsvp_status === status).length;
-  }
-
-  function renderEvents(events, allGuests) {
-    const eventsListEl = document.getElementById('eventsList');
-    eventsListEl.innerHTML = '';
-
-    document.getElementById('statEvents').textContent = events.length;
-    document.getElementById('statGuests').textContent = allGuests.length;
-    document.getElementById('statAccepted').textContent = countFor(allGuests, 'accepted');
-    document.getElementById('statDeclined').textContent = countFor(allGuests, 'declined');
-    document.getElementById('statPending').textContent = countFor(allGuests, 'pending');
-
-    events.forEach((event) => {
-      const guests = allGuests.filter((g) => g.event_id === event.id);
-      const accepted = countFor(guests, 'accepted');
-      const declined = countFor(guests, 'declined');
-      const pending = countFor(guests, 'pending');
-
-      const block = document.createElement('div');
-      block.className = 'card event-block';
-
-      const metaParts = [event.event_type, event.event_date, event.event_time, event.venue].filter(Boolean);
-
-      block.innerHTML = `
-        <div class="event-head">
-          <div>
-            <h3>${escapeHtml(event.name)}</h3>
-            <div class="meta">${escapeHtml(metaParts.join(' · '))}</div>
-          </div>
-          <div class="flex gap-12" style="align-items:center;">
-            <div class="mini-stats">
-              <span class="badge badge-accepted">${accepted} accepted</span>
-              <span class="badge badge-declined">${declined} declined</span>
-              <span class="badge badge-pending">${pending} pending</span>
-            </div>
-            <span class="chevron">▾</span>
-          </div>
-        </div>
-        <div class="guest-table-wrap">
-          ${guests.length === 0 ? '<p class="muted small" style="margin:0;">No guests added yet.</p>' : `
-          <input type="text" class="guest-search" placeholder="Search guests…" />
-          <div class="guest-table-scroll">
-            <table class="guest-table">
-              <thead>
-                <tr><th>Name</th><th>Type</th><th>RSVP</th><th>Checked in</th></tr>
-              </thead>
-              <tbody>
-                ${guests.map((g) => `
-                  <tr data-name="${escapeHtml((g.name || '').toLowerCase())}">
-                    <td>${escapeHtml(g.name)}</td>
-                    <td>${escapeHtml(g.invitation_type)}</td>
-                    <td><span class="badge badge-${g.rsvp_status}">${escapeHtml(g.rsvp_status)}</span></td>
-                    <td>${g.checked_in_count} / ${g.invitation_type === 'double' ? 2 : 1}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>`}
-        </div>
-      `;
-
-      block.querySelector('.event-head').addEventListener('click', () => {
-        block.classList.toggle('open');
-      });
-
-      const searchInput = block.querySelector('.guest-search');
-      if (searchInput) {
-        searchInput.addEventListener('click', (e) => e.stopPropagation());
-        searchInput.addEventListener('input', () => {
-          const q = searchInput.value.trim().toLowerCase();
-          block.querySelectorAll('tbody tr').forEach((row) => {
-            row.style.display = row.dataset.name.includes(q) ? '' : 'none';
-          });
-        });
-      }
-
-      eventsListEl.appendChild(block);
-    });
+    checkingNote.classList.add('hidden');
+    loginForm.classList.remove('hidden');
   }
 
   loginForm.addEventListener('submit', async (e) => {
@@ -304,25 +122,17 @@
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    loginBtn.disabled = false;
-    loginBtn.textContent = 'Sign in';
-
     if (error) {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Sign in';
       showError(loginError, 'Incorrect email or password. Please try again.');
       return;
     }
-    loadDashboard();
+
+    window.location.href = 'dashboard-home.html';
   });
 
-  logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    dashboardView.classList.add('hidden');
-    loginView.classList.remove('hidden');
-    loginForm.reset();
-  });
-
-  // If already signed in (e.g. returning visitor), skip straight to the dashboard.
-  loadDashboard();
+  checkExistingSession();
 </script>
 </body>
 </html>
