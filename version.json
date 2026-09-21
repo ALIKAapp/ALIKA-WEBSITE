@@ -1,0 +1,12 @@
+{
+  "latestVersionCode": 4,
+  "latestVersionName": "2.1.0",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.1.0/Alika-v2.1.0-release.apk",
+  "sha256": "1c219091c5c6d0b8e4cfc7d61495a85c39dcc518227a3672b3832d38d3658746",
+  "releaseNotes": {
+    "sw": "Tumerekebisha hitilafu kwenye paneli ya admin na tumeongeza uwezo wa kusasisha programu moja kwa moja kutoka ndani ya programu.",
+    "en": "Fixed an admin panel crash and added the ability to update the app directly from inside Alika."
+  },
+  "minSupportedVersionCode": 1,
+  "releasedAt": "2026-09-21T13:21:47Z"
+}

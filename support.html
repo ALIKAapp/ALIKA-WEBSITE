@@ -15,6 +15,19 @@
   details.faq p { margin-top:12px; margin-bottom:0; }
   .contact-tile { display:flex; align-items:center; gap:16px; }
   .contact-tile .feature-icon { margin-bottom:0; flex-shrink:0; }
+
+  /* Download section (id="download-alika") — version.json-driven, see the
+     <script> at the end of this section. */
+  .download-card, .install-steps { max-width:560px; margin:0 auto 28px; text-align:center; }
+  .install-steps { text-align:left; }
+  .download-card .badge { font-size:13px; }
+  .download-card #da-notes-sw { margin-top:14px; margin-bottom:4px; }
+  .da-notes-en { font-size:12.5px; color:var(--text-muted); margin-bottom:18px; }
+  .da-fallback-note { display:none; margin-top:14px; margin-bottom:0; font-size:12.5px; color:var(--text-muted); }
+  .install-steps ol { margin:0; padding-left:20px; color:var(--text-secondary); font-size:13.5px; line-height:1.7; }
+  .install-steps li { margin-bottom:14px; }
+  .install-steps li:last-child { margin-bottom:0; }
+  .install-steps .da-en { display:block; color:var(--text-muted); font-size:12px; margin-top:3px; }
 </style>
 </head>
 <body>
@@ -56,7 +69,38 @@
   <div class="container">
     <div class="section-head center" data-reveal="up">
       <span class="eyebrow">Download Alika</span>
-      <h2>Two ways to get set up.</h2>
+      <h2>Get the app on your phone.</h2>
+      <p class="lead" id="da-tagline">Android APK — install directly, no Play Store needed.</p>
+    </div>
+
+    <div class="card download-card" data-reveal="up">
+      <div class="feature-icon" style="margin:0 auto 16px;">
+        <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+      <span class="badge badge-pending" id="da-version">Inapakia toleo…</span>
+      <p id="da-notes-sw">&nbsp;</p>
+      <p id="da-notes-en" class="da-notes-en"></p>
+      <a id="da-download-button" class="btn btn-gold btn-lg" href="https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/latest" rel="noopener">
+        Pakua APK (Download APK)
+      </a>
+      <p id="da-fallback-note" class="da-fallback-note">
+        Imeshindikana kupata maelezo ya toleo jipya moja kwa moja — bonyeza kitufe hapo juu kwenda ukurasa wa GitHub Releases kupakua toleo la karibuni.
+      </p>
+    </div>
+
+    <div class="card install-steps" data-reveal="up">
+      <h3 style="font-size:15.5px; margin-bottom:10px;">Jinsi ya kusakinisha (Android) — Installing on Android</h3>
+      <ol>
+        <li>Baada ya kupakua, fungua faili la APK kutoka kwenye arifa (notification) au folda ya "Downloads".<br><span class="da-en">After downloading, open the APK file from your notification or your "Downloads" folder.</span></li>
+        <li>Ukiona ujumbe unaosema simu haikuruhusu kusakinisha programu kutoka chanzo hiki ("install unknown apps"), gusa "Settings" kwenye ujumbe huo kisha washa ruhusa hiyo.<br><span class="da-en">If you see a message saying your phone doesn't allow installing apps from this source ("install unknown apps"), tap "Settings" on that message and turn the permission on.</span></li>
+        <li>Rudi kisha gusa faili la APK tena, kisha gusa "Install".<br><span class="da-en">Go back, tap the APK file again, then tap "Install".</span></li>
+        <li>Ukishasakinisha, fungua Alika — akaunti yako na taarifa zako zote zitakuwepo kama kawaida.<br><span class="da-en">Once installed, open Alika — your account and all your data will be exactly as you left them.</span></li>
+      </ol>
+    </div>
+
+    <div class="section-head center" data-reveal="up" style="margin-top:48px;">
+      <span class="eyebrow">Other ways to get set up</span>
+      <h2 style="font-size:22px;">Need help another way?</h2>
     </div>
     <div class="grid grid-2">
       <div class="card contact-tile" data-reveal="left">
@@ -81,6 +125,51 @@
     </div>
   </div>
 </section>
+
+<script>
+  // Part B of the in-app update system — see RELEASING.md in the Alika app
+  // repo. Fetches version.json (cache-busted, since GitHub Pages caches for
+  // a few minutes) and fills in the live version name, release notes, and
+  // download link, so this page never needs a manual edit on release day.
+  // Falls back to the GitHub Releases "latest" page (already the button's
+  // default href) if the fetch fails for any reason.
+  (function () {
+    var VERSION_JSON_URL = "https://alikaapp.github.io/ALIKA-WEBSITE/version.json";
+    var versionEl = document.getElementById("da-version");
+    var notesSwEl = document.getElementById("da-notes-sw");
+    var notesEnEl = document.getElementById("da-notes-en");
+    var buttonEl = document.getElementById("da-download-button");
+    var fallbackEl = document.getElementById("da-fallback-note");
+
+    fetch(VERSION_JSON_URL + "?cb=" + Date.now(), { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("bad status");
+        return res.json();
+      })
+      .then(function (data) {
+        if (data && data.latestVersionName) {
+          versionEl.textContent = "Toleo " + data.latestVersionName;
+          versionEl.classList.remove("badge-pending");
+          versionEl.classList.add("badge-accepted");
+        }
+        if (data && data.releaseNotes && data.releaseNotes.sw) {
+          notesSwEl.textContent = data.releaseNotes.sw;
+        }
+        if (data && data.releaseNotes && data.releaseNotes.en) {
+          notesEnEl.textContent = data.releaseNotes.en;
+        }
+        if (data && data.apkUrl) {
+          buttonEl.setAttribute("href", data.apkUrl);
+        }
+      })
+      .catch(function () {
+        versionEl.textContent = "Pakua toleo jipya";
+        versionEl.classList.remove("badge-pending");
+        notesSwEl.textContent = "Pakua Alika moja kwa moja kwa kubonyeza kitufe hapa chini.";
+        fallbackEl.style.display = "block";
+      });
+  })();
+</script>
 
 <section style="background:#fff; border-top:1px solid var(--border);">
   <div class="container">
