@@ -72,7 +72,7 @@ folder as-is.
 `src/lib/config.ts` in the app so guest links point at the new page:
 
 ```ts
-export const RSVP_BASE_URL = "https://your-domain.com/rsvp.html";
+export const RSVP_BASE_URL = "https://alikakidijitali.co.tz/rsvp.html";
 ```
 
 (Previously this pointed at wherever `web-rsvp/index.html` was deployed —
