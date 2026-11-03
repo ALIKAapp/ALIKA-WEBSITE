@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 5,
-  "latestVersionName": "2.1.1",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.1.1/Alika-v2.1.1-release.apk",
-  "sha256": "ace34719affffb7f81a4fe4cb3e186b2126c3a23a72754ddb23f3ff2ae37e7b0",
+  "latestVersionCode": 8,
+  "latestVersionName": "2.2.2",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.2.2/Alika-v2.2.2-release.apk",
+  "sha256": "2cc6d93422d688f1cd708292375bf2e6d9288e50b061b02c07f1bcdf5eae87f1",
   "releaseNotes": {
-    "sw": "Tumerekebisha kipovu cha mazungumzo (X sasa inaonekana vizuri, na ipo upande wa kushoto), lugha ya menyu ya masasisho, utafutaji wa wachuuzi kwenye paneli ya admin, na hitilafu iliyofanya arifa zisiwafikie baadhi ya watumiaji.",
-    "en": "Fixed the live chat bubble (X button now visible and on the left side), the update-checker menu language, vendor search in the admin panel, and a bug that stopped some users from receiving notifications."
+    "sw": "Jina jipya la mtumaji wa SMS: MICHANGO.",
+    "en": "New SMS sender name: MICHANGO."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-09-21T15:24:10Z"
+  "releasedAt": "2026-11-03T06:41:52Z"
 }
