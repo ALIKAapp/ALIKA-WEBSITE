@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 8,
-  "latestVersionName": "2.2.2",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.2.2/Alika-v2.2.2-release.apk",
-  "sha256": "2cc6d93422d688f1cd708292375bf2e6d9288e50b061b02c07f1bcdf5eae87f1",
+  "latestVersionCode": 12,
+  "latestVersionName": "2.4.0",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.4.0/Alika-v2.4.0-release.apk",
+  "sha256": "5838304e959256dac3c4626b7c9548d42cb0161c710056a0f7be9349b6eb3b14",
   "releaseNotes": {
-    "sw": "Jina jipya la mtumaji wa SMS: MICHANGO.",
-    "en": "New SMS sender name: MICHANGO."
+    "sw": "Aina mpya ya mwaliko: Maalum. Chagua idadi ya watu kwa kadi moja (mfano 50) au idadi yoyote.",
+    "en": "New Custom invitation type: set how many people one card admits (e.g. 50), or allow any number."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-03T06:41:52Z"
+  "releasedAt": "2026-11-05T07:04:49Z"
 }
