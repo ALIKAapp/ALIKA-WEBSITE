@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 14,
-  "latestVersionName": "2.4.2",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.4.2/Alika-v2.4.2-release.apk",
-  "sha256": "fff4c15daaaf596e6336854930fa4befa287831aff79e514203c5562b3052fa8",
+  "latestVersionCode": 15,
+  "latestVersionName": "2.5.0",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.0/Alika-v2.5.0-release.apk",
+  "sha256": "bc8e764f152b09255258f73835dd946197fc9fe88f010341a06acfcd77a61645",
   "releaseNotes": {
-    "sw": "Marekebisho: kitufe cha kufunga (X) kinafanya kazi, aina ya mwaliko inafunguka kwa kubofya mara mbili, na jina/aina vinaweza kuwekwa popote kwenye kadi.",
-    "en": "Fixes: the close (X) buttons work, invitation type opens font/color on double-tap, and guest name/type can be placed anywhere on the card."
+    "sw": "Toleo jipya lenye masasisho ya moja kwa moja: marekebisho yatafika bila kupakua APK mpya.",
+    "en": "New version with live updates: future fixes arrive automatically without downloading a new APK."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-05T15:03:40Z"
+  "releasedAt": "2026-11-05T16:58:06Z"
 }
