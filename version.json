@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 12,
-  "latestVersionName": "2.4.0",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.4.0/Alika-v2.4.0-release.apk",
-  "sha256": "5838304e959256dac3c4626b7c9548d42cb0161c710056a0f7be9349b6eb3b14",
+  "latestVersionCode": 14,
+  "latestVersionName": "2.4.2",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.4.2/Alika-v2.4.2-release.apk",
+  "sha256": "fff4c15daaaf596e6336854930fa4befa287831aff79e514203c5562b3052fa8",
   "releaseNotes": {
-    "sw": "Aina mpya ya mwaliko: Maalum. Chagua idadi ya watu kwa kadi moja (mfano 50) au idadi yoyote.",
-    "en": "New Custom invitation type: set how many people one card admits (e.g. 50), or allow any number."
+    "sw": "Marekebisho: kitufe cha kufunga (X) kinafanya kazi, aina ya mwaliko inafunguka kwa kubofya mara mbili, na jina/aina vinaweza kuwekwa popote kwenye kadi.",
+    "en": "Fixes: the close (X) buttons work, invitation type opens font/color on double-tap, and guest name/type can be placed anywhere on the card."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-05T07:04:49Z"
+  "releasedAt": "2026-11-05T15:03:40Z"
 }
