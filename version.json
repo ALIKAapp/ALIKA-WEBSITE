@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 15,
-  "latestVersionName": "2.5.0",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.0/Alika-v2.5.0-release.apk",
-  "sha256": "bc8e764f152b09255258f73835dd946197fc9fe88f010341a06acfcd77a61645",
+  "latestVersionCode": 16,
+  "latestVersionName": "2.5.1",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.1/Alika-v2.5.1-release.apk",
+  "sha256": "a7b8d36c255f99b5f573d5156312a7154881b6ba9b2617cc582ad4be91e98084",
   "releaseNotes": {
-    "sw": "Toleo jipya lenye masasisho ya moja kwa moja: marekebisho yatafika bila kupakua APK mpya.",
-    "en": "New version with live updates: future fixes arrive automatically without downloading a new APK."
+    "sw": "Marekebisho ya kuweka jina la mgeni na aina ya mwaliko, rangi nyeusi kwa chaguo-msingi, na kuangalia masasisho ya moja kwa moja.",
+    "en": "Smoother guest name/type placement, black default text, and live-update checking."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-05T16:58:06Z"
+  "releasedAt": "2026-11-06T07:53:41Z"
 }
