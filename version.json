@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 17,
-  "latestVersionName": "2.5.2",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.2/Alika-v2.5.2-release.apk",
-  "sha256": "3c850e10b2ac77f478a4e7e3f327343b6cbed7fe2a72bde53bb191de1c5262ba",
+  "latestVersionCode": 18,
+  "latestVersionName": "2.5.3",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.3/Alika-v2.5.3-release.apk",
+  "sha256": "fdfb86c79f9fd78a632164b825246bcb822e6828cae0c1a4b6798c97b88e082e",
   "releaseNotes": {
-    "sw": "Uchezaji laini wa jina la mgeni na aina ya mwaliko, rangi nyeusi kwa chaguo-msingi, na ujumbe wa masasisho ya moja kwa moja.",
-    "en": "Smooth guest name/type placement, black default text, and live-update status message."
+    "sw": "Namba moja ya simu sasa inaweza kutumika na wageni wengi.",
+    "en": "The same phone number can now be used by multiple guests."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-06T08:49:04Z"
+  "releasedAt": "2026-11-07T12:21:53Z"
 }
