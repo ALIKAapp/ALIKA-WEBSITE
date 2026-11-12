@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 18,
-  "latestVersionName": "2.5.3",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.3/Alika-v2.5.3-release.apk",
-  "sha256": "fdfb86c79f9fd78a632164b825246bcb822e6828cae0c1a4b6798c97b88e082e",
+  "latestVersionCode": 19,
+  "latestVersionName": "2.5.4",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.4/Alika-v2.5.4-release.apk",
+  "sha256": "c70989cac00ea4f3b379936917915129116f4e6857bfd0a2462b690f72a823bd",
   "releaseNotes": {
-    "sw": "Namba moja ya simu sasa inaweza kutumika na wageni wengi.",
-    "en": "The same phone number can now be used by multiple guests."
+    "sw": "Tafuta mgeni kwa jina/namba kwenye skana, Undo, majibu ya WhatsApp yanaonekana papo hapo.",
+    "en": "Scanner search by name/phone, Undo, live WhatsApp RSVP updates."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-07T12:21:53Z"
+  "releasedAt": "2026-11-12T10:30:19Z"
 }
