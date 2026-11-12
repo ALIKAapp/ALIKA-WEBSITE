@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 19,
-  "latestVersionName": "2.5.4",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.4/Alika-v2.5.4-release.apk",
-  "sha256": "c70989cac00ea4f3b379936917915129116f4e6857bfd0a2462b690f72a823bd",
+  "latestVersionCode": 20,
+  "latestVersionName": "2.5.5",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.5/Alika-v2.5.5-release.apk",
+  "sha256": "499a2f1eeb4d8f40b066f8dc0440b5565d8766de694a0edcfd2fc4f98d8c37a0",
   "releaseNotes": {
-    "sw": "Tafuta mgeni kwa jina/namba kwenye skana, Undo, majibu ya WhatsApp yanaonekana papo hapo.",
-    "en": "Scanner search by name/phone, Undo, live WhatsApp RSVP updates."
+    "sw": "Excel sasa inasoma Single/Double kwa usahihi (pamoja na safu ya 'Invitation Card', 'Kadi', 'Wawili').",
+    "en": "Excel import now reads Single/Double correctly (including 'Invitation Card', 'Kadi', 'Wawili' columns)."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-12T10:30:19Z"
+  "releasedAt": "2026-11-12T11:10:58Z"
 }
