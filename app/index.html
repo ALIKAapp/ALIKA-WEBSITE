@@ -3,24 +3,62 @@
   <head>
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- viewport-fit=cover lets the app use the full iPhone screen; the app's
+         own safe-area handling keeps content clear of the notch/home bar. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>Alika</title>
+
+    <!-- Installable app ("Add to Home Screen") on iPhone and Android -->
+    <link rel="manifest" href="/app/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Alika" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=no" />
+
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
-      /* These styles make the body full-height */
       html,
       body {
         height: 100%;
       }
-      /* These styles disable body scrolling if you are using <ScrollView> */
       body {
         overflow: hidden;
+        /* Stop iPhone bouncing the whole page and highlighting taps grey */
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: 100%;
       }
-      /* These styles make the root element full-height */
       #root {
         display: flex;
         height: 100%;
         flex: 1;
+      }
+
+      /* iPhone "Add to Home Screen" hint — only shown in iPhone Safari when
+         the app is not already installed (see script below). */
+      #ios-install {
+        position: fixed; left: 12px; right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        z-index: 2147483647;
+        background: #fff; color: #1d1d1f;
+        border-radius: 16px; padding: 14px 40px 14px 14px;
+        box-shadow: 0 8px 30px rgba(0,0,0,.25);
+        font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        display: flex; gap: 12px; align-items: flex-start;
+        max-width: 480px; margin: 0 auto;
+      }
+      #ios-install img { width: 44px; height: 44px; border-radius: 10px; flex: none; }
+      #ios-install b { display: block; margin-bottom: 2px; }
+      #ios-install .en { color: #6e6e73; font-size: 12.5px; margin-top: 4px; }
+      #ios-install .share {
+        display: inline-block; width: 15px; height: 15px; vertical-align: -2px;
+      }
+      #ios-install button {
+        position: absolute; top: 6px; right: 6px;
+        width: 32px; height: 32px; border: 0; background: none;
+        font-size: 22px; line-height: 1; color: #6e6e73; cursor: pointer;
       }
     </style>
   <meta name="theme-color" content="#7100A5">
@@ -28,12 +66,57 @@
 <link rel="icon" href="/app/favicon.ico"/></head>
 
   <body>
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <!-- The root element for your Expo app. -->
     <div id="root"></div>
+
+    <script>
+      (function () {
+        try {
+          var ua = navigator.userAgent || "";
+          var isIOS = /iPhone|iPad|iPod/.test(ua) ||
+            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+          var installed = window.navigator.standalone === true ||
+            (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+          // Only Safari can add to Home Screen reliably; other iOS browsers
+          // (Chrome = CriOS, Firefox = FxiOS) show a different share menu.
+          var isSafari = !/CriOS|FxiOS|EdgiOS|OPiOS|GSA|FBAN|FBAV|Instagram|WhatsApp/.test(ua);
+          if (!isIOS || installed) return;
+
+          var KEY = "alika_ios_install_dismissed";
+          var dismissedAt = 0;
+          try { dismissedAt = Number(localStorage.getItem(KEY)) || 0; } catch (e) {}
+          // Show again 7 days after being closed.
+          if (Date.now() - dismissedAt < 7 * 24 * 60 * 60 * 1000) return;
+
+          var share = '<svg class="share" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+          var body = isSafari
+            ? 'Gusa ' + share + ' <b style="display:inline">Shiriki</b> chini, kisha <b style="display:inline">"Ongeza kwenye Skrini ya Mwanzo"</b>.' +
+              '<div class="en">Tap ' + share + ' Share, then "Add to Home Screen".</div>'
+            : 'Fungua ukurasa huu kwenye <b style="display:inline">Safari</b>, gusa ' + share + ' Shiriki, kisha "Ongeza kwenye Skrini ya Mwanzo".' +
+              '<div class="en">Open this page in Safari, tap ' + share + ' Share, then "Add to Home Screen".</div>';
+
+          function show() {
+            var el = document.createElement("div");
+            el.id = "ios-install";
+            el.setAttribute("role", "dialog");
+            el.setAttribute("aria-label", "Install Alika");
+            el.innerHTML =
+              '<img src="/app/apple-touch-icon.png" alt="" />' +
+              '<div><b>Weka Alika kwenye iPhone yako</b>' + body + '</div>' +
+              '<button type="button" aria-label="Close">&times;</button>';
+            el.querySelector("button").onclick = function () {
+              try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+              el.parentNode && el.parentNode.removeChild(el);
+            };
+            document.body.appendChild(el);
+          }
+          // Let the app load first so the hint doesn't cover the splash.
+          window.addEventListener("load", function () { setTimeout(show, 2500); });
+        } catch (e) {}
+      })();
+    </script>
   <script src="/app/_expo/static/js/web/AppEntry-0e540ca22f14b60288f4197e7a4ed860.js" defer></script>
 </body>
 </html>
