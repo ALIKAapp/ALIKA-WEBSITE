@@ -1,12 +1,12 @@
 {
-  "latestVersionCode": 20,
-  "latestVersionName": "2.5.5",
-  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.5/Alika-v2.5.5-release.apk",
-  "sha256": "499a2f1eeb4d8f40b066f8dc0440b5565d8766de694a0edcfd2fc4f98d8c37a0",
+  "latestVersionCode": 21,
+  "latestVersionName": "2.5.6",
+  "apkUrl": "https://github.com/ALIKAapp/ALIKA-WEBSITE/releases/download/v2.5.6/Alika-v2.5.6-release.apk",
+  "sha256": "315fac8a50b205d892317a344d8ae1e6ad50a75f224ee70c0fe045d2c135a422",
   "releaseNotes": {
-    "sw": "Excel sasa inasoma Single/Double kwa usahihi (pamoja na safu ya 'Invitation Card', 'Kadi', 'Wawili').",
-    "en": "Excel import now reads Single/Double correctly (including 'Invitation Card', 'Kadi', 'Wawili' columns)."
+    "sw": "Uchaguzi wa kiolezo cha WhatsApp unaonyesha maelezo; skana inaonyesha taarifa kamili za mgeni; ripoti: tafuta mgeni na badilisha uthibitisho (RSVP), na safu mpya ya RSVP kwenye PDF.",
+    "en": "WhatsApp template picker shows each template's details; scanner search shows full guest details; reports: search guests and edit RSVP, plus a new RSVP column in the PDF."
   },
   "minSupportedVersionCode": 1,
-  "releasedAt": "2026-11-12T11:10:58Z"
+  "releasedAt": "2026-11-24T17:42:10Z"
 }
